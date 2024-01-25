@@ -27,7 +27,8 @@ Then click on Modify options as indicated with the screenshot below:
 
 Make sure that "Emulate terminal in output console is turned on"
 
-![Output console](img_5.png)
+![Output console](![image](https://github.com/Jacobventer/Habit-Tracker/assets/149387555/ea7b4cce-6f2d-4d1f-99e5-99bfff5fa0c9)
+)
 
 
 ## Usage
