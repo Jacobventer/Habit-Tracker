@@ -1,34 +1,30 @@
-from counter import Counter
-from db import get_db, add_counter, increment_counter, get_counter_date
+from db import get_db, add_counter, increment_counter
 from analyse import calculate_count
-from datetime import date, datetime
-import os
-
+from counter import Counter
+from datetime import datetime, timedelta
 
 class TestCounter:
 
     def setup_method(self):
         self.db = get_db("test.db")
         add_counter(self.db, "test_counter", "daily")
-        increment_counter(self.db, "test_counter", "2024-01-06")
-        increment_counter(self.db, "test_counter", "2024-02-07")
 
-        increment_counter(self.db, "test_counter", "2024-01-09")
-        increment_counter(self.db, "test_counter", "2024-02-10")
+        current_date = datetime.strptime("2023-01-06", "%Y-%m-%d")
+        for _ in range(4 * 7):  # 4 weeks with 7 days each
+            increment_counter(self.db, "test_counter", current_date.strftime("%Y-%m-%d"))
+            current_date += timedelta(days=1)
 
     def test_counter(self):
-        counter = Counter("test_counter_1", "daily")
+        counter = Counter("test_counter_1", "test_description_1")
         counter.store(self.db)
 
-        counter.increment(self.db)
+        counter.increment()
         counter.add_event(self.db)
         counter.reset()
-        counter.increment(self.db)
-
-        # Add assertions here if needed
+        counter.increment()
 
     def test_db_counter(self):
-        data = get_counter_date(self.db, "test_counter")
+        data = get_counter_data(self.db, "test_counter")
         assert len(data) == 4
 
         count = calculate_count(self.db, "test_counter")
@@ -41,10 +37,10 @@ class TestCounter:
         counter1.store(self.db)
         counter2.store(self.db)
 
-        counter1.increment(self.db)
+        counter1.increment()
         counter1.add_event(self.db)
 
-        counter2.increment(self.db)
+        counter2.increment()
         counter2.add_event(self.db)
 
         count1 = calculate_count(self.db, "habit1")
@@ -54,4 +50,5 @@ class TestCounter:
         assert count2 == 1
 
     def teardown_method(self):
+        import os
         os.remove("test.db")
