@@ -2,11 +2,6 @@ import json
 from datetime import date
 
 def get_db(name="main.db"):
-    """
-    Get the database.
-    :param name: Name of the database file.
-    :return: The database.
-    """
     try:
         with open(name, 'r') as file:
             db = json.load(file)
@@ -17,11 +12,6 @@ def get_db(name="main.db"):
     return db
 
 def save_db(db, name="main.json"):
-    """
-    Save the database.
-    :param db: The database to be saved.
-    :param name: Name of the database file.
-    """
     with open(name, 'w') as file:
         json.dump(db, file)
 
