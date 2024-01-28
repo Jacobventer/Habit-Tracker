@@ -6,7 +6,7 @@ from datetime import date
 
 def cli():
     db = get_db()
-    print("Welcome to Habit Tracker. Lets begin? Press one of the arrows to initiate the optons:")
+    print("Welcome to Habit Tracker. Press one of the arrows to initiate the options:")
 
     habits = [] # List to strore 5 habtis
 
