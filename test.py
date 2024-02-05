@@ -25,10 +25,10 @@ class TestCounter:
 
     def test_db_counter(self):
         data = get_counter_data(self.db, "test_counter")
-        assert len(data) == 4
+        assert len(data) == 4   #Expected 4 records in the database for 'test_db_counter'
 
         count = calculate_count(self.db, "test_counter")
-        assert count == 4
+        assert count == 4 #"Expected count to be 4 for 'test_db_counter'."
 
     def test_multiple_habits(self):
         counter1 = Counter("habit1", "daily")
