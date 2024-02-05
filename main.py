@@ -1,10 +1,10 @@
-import questionary
+import questionary #Check the readme file for correct settings
 from db import get_db, get_habits_by_period
 from counter import Counter
 from analyse import calculate_count
 from datetime import date
 
-def cli():
+def cli(): #User interface
     db = get_db()
     print("Welcome to Habit Tracker. Press one of the arrows to initiate the options:")
 
@@ -20,7 +20,7 @@ def cli():
             habit_name = questionary.select("Choose one of the following Habits:", choices=create_choices).ask()
 
             if habit_name == "Back":
-                continue  # Go back to the main menu
+                continue  # Back to the main menu
             print(f"{habit_name} has been added")
             # User choose between daily and weekly period
             period_choices = ["Daily", "Weekly", "Back"]
@@ -28,8 +28,8 @@ def cli():
             print(f"You have added {habit_name} as a {period} habit")
 
             if period != "Back":
-                counter = Counter(habit_name, period)
-                counter.store(db)
+                counter = Counter(habit_name, period) #Imported from counter.py
+                counter.store(db) #Imported from db.py
                 habits.append(counter)
 
         elif choice == "Check off":
@@ -46,7 +46,7 @@ def cli():
                 if habit_to_check_off:
                     habit_to_check_off.increment(db)
                     habit_to_check_off.add_event(db)
-                    print(f"{habit_to_check_off.name} has been checked off.")
+                    print(f"{habit_to_check_off.name} has been checked off.") #User gets cofirmation that the habit has been checked off
                     break
 
         elif choice == "Analyse":
@@ -59,8 +59,8 @@ def cli():
                     print(f"List of habits with {selected_period} period:")
                     for habit in habits:
                         name = habit.get('name', 'N/A')
-                        create_date = habit.get('create_date', 'N/A')
-                        print(f"{name} - Created on: {create_date}")
+                        create_date = habit.get('habit.create_date', 'N/A') #Print the habit's name with the created date
+                        print(f"{name} - Created on: {habit.create_date}")
                     # Additional menu for daily and weekly options
 
                     if selected_period != "Back":
@@ -71,13 +71,13 @@ def cli():
                         elif period_menu_choice == "Weekly":
                             list_habits_by_period(db, "weekly")
                         elif period_menu_choice == "Back":
-                            return  # Return to exit the function and go back to the main menu
+                            return  # Return to the main menu
                         else:
-                            pass  # Handle any additional options or logic you need
+                            pass
 
             while True:
                 analyse_choices = ["List all Habits", "List Habits with the same period", "Longest streak of all Habits",
-                                   "Longest streak of a specific Habit", "Back"]
+                                   "Longest streak of a specific Habit", "Back"] #List that the user will see
 
                 analyse = questionary.select("Choose one of the following Habits:", choices=analyse_choices).ask()
                 if analyse == "List all Habits":
@@ -95,7 +95,7 @@ def cli():
                     elif selected_period == "Back":
                         break  # Break out of the loop to go back to the main menu
                     else:
-                        pass  # Handle any additional options or logic you need
+                        pass
 
                 elif analyse == "Longest streak of all Habits":
                     period_choices = ["Daily", "Weekly", "Back"]
@@ -105,7 +105,7 @@ def cli():
 
                     longest_streak = 0
                     longest_habits = []
-                    # Separate habits based on the selected period
+                    # Separate habits based on the selected period - Weekly or Daily
 
                     period_habits = [habit for habit in habits if habit.period.lower() == selected_period.lower()]
                     for habit in period_habits:
@@ -133,7 +133,7 @@ def cli():
                     habit_name_to_check = questionary.select("Which habit's longest streak do you want to see?:",choices=habit_to_analyse_choices).ask()
 
                     if habit_name_to_check == "Back":
-                        break  # Break out of the loop to go back to the main menu
+                        break
 
                     habit_to_check = next((habit for habit in habits if habit.name == habit_name_to_check), None)
 
@@ -145,10 +145,10 @@ def cli():
                         print(f"No habit found with the name {habit_name_to_check}")
 
                 elif analyse == "Back":
-                    break  # Break out of the loop to go back to the main menu
+                    break
 
         else:
-            print("Goodbye!")
+            print("Keep up the hard work!")
             stop = True
 
 if __name__ == "__main__":
