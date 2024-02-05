@@ -17,8 +17,8 @@ class Counter:
 
     def check_consistency(self, db):
         """
-        Check the consistency of the habit streaks based on the period.
-        :param db: The database.
+        Check the consistency of habit streaks based on the period (daily or weekly).
+        :param db: The database to retrieve habit events.
         """
         events = get_counter_date(db, self.name)
 
@@ -39,24 +39,34 @@ class Counter:
                 self.reset_weekly_streak()
 
     def increment(self, db):
+        """
+        Increment the habit counter and update streaks.
+        :param db: The database to check consistency and update the habit.
+        """
         self.count += 1
         self.check_consistency(db)
         self.daily_habit_streak += 1  # Increment the daily streak
         self.weekly_habit_streak += 1  # Increment the weekly streak
 
-    def reset_daily_streak(self):
+    def reset_daily_streak(self): #Reset daily to 0
         self.daily_habit_streak = 0
 
-    def reset_weekly_streak(self):
+    def reset_weekly_streak(self): #Reset weekly to 0
         self.weekly_habit_streak = 0
 
     def __str__(self):
         return f"{self.name}: {self.count}"
 
-    def store(self, db):
+    def store(self, db): #Store data in database
         add_counter(db, self.name, self.period, self.create_date)
 
     def add_event(self, db, date: str = None):
+        """
+        Add a habit-checking event to the database and update streaks.
+        :param db: The database to add the event and update the habit.
+        :param date: The date of the event (defaults to today).
+        """
+
         if not date:
             date = str(dt_date.today())
         else:
