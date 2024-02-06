@@ -28,7 +28,7 @@ Then click on Modify options as indicated with the screenshot below:
 
 Make sure that "Emulate terminal in output console is turned on"
 
-![Output console](img_5.png)
+![Output console](![image](https://github.com/Jacobventer/Habit-Tracker/assets/149387555/8076af52-6962-4461-b1c8-e95c6df202ff))
 
 
 ## Usage
@@ -43,11 +43,11 @@ check them off, and analyze your progress.
 
 Use the arrow keys and enter to select the desired option:
 
-![Main menu](img_2.png)
+![Main menu](![image](https://github.com/Jacobventer/Habit-Tracker/assets/149387555/bf8a6140-79d7-40d3-a016-377fc8acddb8))
 
 Use the easy to use menu to navigate to the desired option
 
-![5 pre set habits](img_3.png)
+![5 pre set habits](![image](https://github.com/Jacobventer/Habit-Tracker/assets/149387555/f8e4e723-258f-4edc-ae48-9a2c581d598d))
 
 ## Testing
 To run the tests for the app, ensure you have the pytest package installed.
