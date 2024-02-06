@@ -13,17 +13,16 @@ def cli(): #User interface
     stop = False
     while not stop:
         choice = questionary.select("Select one of the following options:", choices = ["Create", "Check off", "Analyse", "Exit"]).ask()
-        print(choice)
+        print(choice) # Using questionary for the user to choose desired option
 
         if choice == "Create":
-            create_choices = ["Running", "Gym", "Floss", "Read", "Journal", "Back"]
+            create_choices = ["Running", "Gym", "Floss", "Read", "Journal", "Back"] #5 pre set habits to choose from
             habit_name = questionary.select("Choose one of the following Habits:", choices=create_choices).ask()
 
             if habit_name == "Back":
                 continue  # Back to the main menu
             print(f"{habit_name} has been added")
-            # User choose between daily and weekly period
-            period_choices = ["Daily", "Weekly", "Back"]
+            period_choices = ["Daily", "Weekly", "Back"] # User choose between daily and weekly period
             period = questionary.select("What is the period of your Habit?",choices=period_choices).ask()
             print(f"You have added {habit_name} as a {period} habit")
 
@@ -32,7 +31,7 @@ def cli(): #User interface
                 counter.store(db) #Imported from db.py
                 habits.append(counter)
 
-        elif choice == "Check off":
+        elif choice == "Check off": #If not checked of according to the period, habit streak will be broken
             while True:
                 habit_names = [habit.name for habit in habits]
                 habit_names.append("Back")  # option to go back to the main menu
@@ -49,7 +48,7 @@ def cli(): #User interface
                     print(f"{habit_to_check_off.name} has been checked off.") #User gets cofirmation that the habit has been checked off
                     break
 
-        elif choice == "Analyse":
+        elif choice == "Analyse": #Analyse menu, choose one of 4 options in the analyse menu
             def list_habits_by_period(db, selected_period):
                 habits = get_habits_by_period(db, selected_period)
                 if not habits:
@@ -58,13 +57,13 @@ def cli(): #User interface
                 else:
                     print(f"List of habits with {selected_period} period:")
                     for habit in habits:
-                        name = habit.get('name', 'N/A')
-                        create_date = habit.get('habit.create_date', 'N/A') #Print the habit's name with the created date
-                        print(f"{name} - Created on: {habit.create_date}")
+                        name = habit.get('name', 'N/A') #N/a so that the program doent break if there is no name
+                        create_date = habit.get('habit.create_date', 'N/A') #Print the habit's name with the created date, n/a if there is no date
+                        print(f"{name} - Created on: {create_date}")
                     # Additional menu for daily and weekly options
 
                     if selected_period != "Back":
-                        period_menu_choices = ["Daily", "Weekly", "Back"]
+                        period_menu_choices = ["Daily", "Weekly", "Back"] #user choose between the two periods
                         period_menu_choice = questionary.select("Choose the period:", choices=period_menu_choices).ask()
                         if period_menu_choice == "Daily":
                             list_habits_by_period(db, "daily")
@@ -77,7 +76,7 @@ def cli(): #User interface
 
             while True:
                 analyse_choices = ["List all Habits", "List Habits with the same period", "Longest streak of all Habits",
-                                   "Longest streak of a specific Habit", "Back"] #List that the user will see
+                                   "Longest streak of a specific Habit", "Back"] # Analyse choises that the user will see
 
                 analyse = questionary.select("Choose one of the following Habits:", choices=analyse_choices).ask()
                 if analyse == "List all Habits":
