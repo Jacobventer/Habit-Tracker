@@ -23,7 +23,7 @@ For Questionary to work correctly you might need to change a few settings:
 In main.py - rightclick the folder. Select "Modify run configeration" 
 Then click on Modify options as indicated with the screenshot below:
 
-![Modify options](![image](https://github.com/Jacobventer/Habit-Tracker/assets/149387555/9a0dd814-55f6-4eda-b3eb-768470bc504b)
+!(![image](https://github.com/Jacobventer/Habit-Tracker/assets/149387555/9a0dd814-55f6-4eda-b3eb-768470bc504b)
 )
 
 Make sure that "Emulate terminal in output console is turned on"
